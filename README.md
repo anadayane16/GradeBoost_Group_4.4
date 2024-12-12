@@ -31,4 +31,4 @@ Usage
 4. Save your report by letting GradeBoost send you an email.
   - To remember the predicted grade and track progress over time, an email can be sent to your personal mail address.
   - In order for this to work, the SendGrid API is used.
-  - You don't need an API key, as this is already safely stored in Streamlit Cloud.
+  - You don't need the API key (SENDGRID_API_KEY = "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"), as this is already safely stored in Streamlit Cloud.
