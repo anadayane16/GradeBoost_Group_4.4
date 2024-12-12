@@ -546,7 +546,7 @@ if st.button("Submit"):
         #It contains information about the sending email address, the receiver, subject and content of the email.
         def send_email(user_email, note):
             message = Mail(
-                from_email='gradeboostapp@gmail.com',  #The mail is sent from our own GradeBoost email-address.
+                from_email='anadayane@live.com',  #The mail is sent from our own GradeBoost email-address.
                 to_emails=email,
                 subject='Your projected grade',
                 html_content=f'''<strong>Your projected grade is: {note}</strong>
