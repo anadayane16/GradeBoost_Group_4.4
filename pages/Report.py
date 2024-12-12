@@ -53,7 +53,6 @@ if st.session_state.responses:
         st.markdown("<h5 style='font-size: 20px;'>Deviation From Averages</h5>", unsafe_allow_html=True) #The code displays a styled header for "Deviation From Averages" using HTML (supported by ChatGPT)
 
         #The code generates a table with 2 columns
-        #See later in line xy and line xy, where specific elements are placed
         #(API Reference/Layouts and containters - Streamlit Docs)
         col1, col2 = st.columns(2)
 
@@ -335,7 +334,7 @@ if st.session_state.responses:
                     age, gender_numeric, parental_degree_numeric, average_time, absences, tutoring_numeric, support_numeric, extracurricular, sports, music, volunteering, performance = st.session_state.responses
 
                     #We define a function in order to convert swiss grades to US grades (4-scale-GPA) to comply with our GitHub-API.
-                    #The formula was created with the help of ChatGPT.
+                    #The formula was created partially with the help of ChatGPT.
                     def swiss_to_us_gpa(swiss_grade):
                         return 2 + ((swiss_grade - 1) / 5) * 2
 
@@ -343,7 +342,7 @@ if st.session_state.responses:
                     us_gpa = swiss_to_us_gpa(swiss_grade) #Here, the conversion ultimately takes place. The code calls the swiss_to_us_gpa function to convert the grade into the US GPA format.
                     #The resulting us_gpa is used in further calculations or visualizations, likely involving predictions or comparisons (Supported by ChatGPT).
 
-                    #In this ML part we relied heavely on the help of ChatGPT.
+                    #In this ML part we relied on Scikit Learn Bib and ChatGPT.
                     #If needed we adjusted code snippets on error statements as an example.
                     scaler = load('scaler.pkl')  #In the beggining, the code loads the correct scaler saved during training phase of the ML Model. 
                     #This is crucial to scale new input data consistently with the training data.
@@ -381,7 +380,7 @@ if st.session_state.responses:
 
                     #The random forest model is used to predict grades based on the scaled input data.
                     #The latter code get probabilities for each possible grade to see how confident the model is.
-                    #It gives confidence levels (e.g., [80%, 15%, 5%])
+                    #It gives confidence levels (for example [80%, 15%, 5%])
                     predictions = model.predict(new_data_scaled)
                     probabilities = model.predict_proba(new_data_scaled)
 
@@ -401,7 +400,7 @@ if st.session_state.responses:
                         
                         #A list comprehension is used to create a list mapped_labels that holds the grade labels.
                         #For each prob (which is a list of probabilities), it maps each index j to a grade using the grade_mapping dictionary.
-                        #This results in labels like ['Grade: 5.5-6', 'Grade: 4.5-5', 'Grade: 4', ...].
+                        #This results in labels like ['Grade: 5.5-6', 'Grade: 4.5-5', 'Grade: 4', etc.].
                         mapped_labels = [f'Grade: {grade_mapping[j]}' for j in range(len(prob))]
 
                         #Here, the code finds the grade with the highest probability according to the data gathered in the questionnaire.
