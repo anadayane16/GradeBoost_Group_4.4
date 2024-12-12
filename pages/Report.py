@@ -235,17 +235,17 @@ if st.session_state.responses:
 
             #The code inserts the average values from the dataset in a list, that were previously calculated in the Excelsheet.
             average_values = [
-                16.46864548,  # Age
-                1.746237458,  # Parental Education
-                9.771991919,  # Weekly Study Time
-                14.54138796,  # Absences
-                2.122074,     # Parental Support
-                0.301421,     # Tutoring
-                4,            # GPA
-                0.303512,     # Sports
-                0.196906,     # Music
-                0.157191,     # Volunteering
-                0.383361      # Extracurricular Activities
+                16.46864548,  #Age
+                1.746237458,  #Parental Education
+                9.771991919,  #Weekly Study Time
+                14.54138796,  #Absences
+                2.122074,     #Parental Support
+                0.301421,     #Tutoring
+                4,            #GPA
+                0.303512,     #Sports
+                0.196906,     #Music
+                0.157191,     #Volunteering
+                0.383361      #Extracurricular Activities
             ]
 
             #This list contains the categories corresponding to the average values.
@@ -420,6 +420,7 @@ if st.session_state.responses:
 
                         #fig.update_layout() is used to fine-tune the appearance of the pie chart (fig).
                         #Hides the legend in the chart, since the chart labels (grade ranges) will already be displayed on the pie slices.
+                        #(Plotly Bib/Scientific Charts/Radar Charts)
                         fig.update_layout(
                             showlegend=False,
                             height=380,  #Adjust the height of the chart
@@ -453,33 +454,33 @@ if st.session_state.responses:
                 'Importance (%)': [4.71, 2.35, 4.61, 6.88, 19.69, 2.68, 6.28, 2.03, 2.01, 1.37, 1.02, 46.36]
             }
 
-            # The data is converted into a DataFrame
-            # If the button is clicked, session state is initialized
+            #The data is converted into a DataFrame
+            #If the button is clicked, session state is initialized
             if 'show_table1' not in st.session_state:
                 st.session_state['show_table1'] = False
 
-            # This button allows the user to toggle the visibility of the "Feature Importance" table.
-            # If 'show_table1' is True, the table is shown; if False, the table is hidden.
-            # This provides an interactive way for the user to view or hide the table as needed.
+            #This button allows the user to toggle the visibility of the "Feature Importance" table.
+            #If 'show_table1' is True, the table is shown; if False, the table is hidden.
+            #This provides an interactive way for the user to view or hide the table as needed.
             #(API Reference/Input widgets/Caching and state - Streamlit Docs)
             if st.button("Table 2: Feature Importance"):
                 st.session_state['show_table1'] = not st.session_state['show_table1']
 
             if st.session_state['show_table1']:
-                # The data is converted into a data frame and also sorted by importance (%) in descending order
+                #The data is converted into a data frame and also sorted by importance (%) in descending order
                 df = pd.DataFrame(data)
                 df_sorted = df.sort_values(by='Importance (%)', ascending=False)
 
-                # Here, the DataFrame is formatted to display one decimal point for easier readability
+                #Here, the DataFrame is formatted to display one decimal point for easier readability
                 df_formatted = df_sorted.set_index('Feature').style.format("{:.1f}", subset=['Importance (%)'])
 
-                # Ultimately, the formatted table is displayed in Streamlit
+                #Ultimately, the formatted table is displayed in Streamlit
                 #(API Reference/Data elements - Streamlit Docs)
                 st.table(df_formatted)
 
             else:
-                # The user is informed that he can click the button to display the full table
-                # The table is not displayed by default for aesthetic reasons
+                #The user is informed that he can click the button to display the full table
+                #The table is not displayed by default for aesthetic reasons
                 #(API Reference/Status elements - Streamlit Docs)
                 st.info("Click the button to display the table.")
 
@@ -487,7 +488,6 @@ if st.session_state.responses:
         #This is tho show the user that the grade prediction is not random, but based on his data
         #(API Reference/Write and magic - Streamlit Docs)
         st.write(f"Based on the provided inputs, the model predicts a {max_prob:.1%} likelihood that your grade will be {predicted_grade}. This prediction is derived from an extensive analysis of historical performance data. Each feature contributes differently to predicting your grade. Focus on improving the most impactful ones for better results. Our tests show that the model achieves an accuracy of 91.02%, indicating a strong ability to predict outcomes reliably.")
-
 
     #If something goes wrong, the user is provided with an error message
     except ValueError:
@@ -499,7 +499,6 @@ if st.session_state.responses:
 #(API Reference/Status elements - Streamlit Docs)
 else:
     st.warning("Please complete the questionnaire to view your report.")
-
 
 #(API Reference/Text elements - Streamlit Docs)
 st.markdown("---")
